@@ -90,10 +90,15 @@ public class NexusRestController {
 
 
     @RequestMapping("/user/get")
-    public @ResponseBody
-    List<User> showUserList() {
-        return userService.getList();
+public ResponseEntity<List<User>> showUserList() {
+    try {
+        List<User> userList = userService.getList();
+        return ResponseEntity.ok(userList);
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(Collections.emptyList());
     }
+}
 
 }
 
